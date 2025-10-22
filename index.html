@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eric Schellhase – Startseite</title>
+  <style>
+    :root {
+      --bg: #f9f9fb;
+      --fg: #222;
+      --accent: #20b581;
+      --card-bg: #fff;
+      --card-border: #e0e0e0;
+      --table-header: #eaf1fb;
+      --table-row: #f5f7fa;
+      --shadow: 0 4px 16px rgba(32,181,129,0.10);
+      --radius: 16px;
+      --maxw: 900px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      max-width: var(--maxw);
+      padding: 2.5rem 1rem 1.5rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 0.7em 0;
+      font-size: 2.2rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    header p {
+      margin: 0.7em 0;
+      font-size: 1.1rem;
+      color: var(--fg);
+    }
+    main {
+      width: 100%;
+      max-width: var(--maxw);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .profile {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2.5rem;
+      justify-content: center;
+    }
+    .profile figure {
+      margin: 0;
+      flex: 0 0 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .profile img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .profile figcaption {
+      margin-top: 1em;
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .profile-details {
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.2em;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 0.8em 1em;
+      text-align: left;
+    }
+    th {
+      background: var(--table-header);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    tr {
+      background: var(--table-row);
+      transition: background 0.2s;
+    }
+    tr:nth-child(even) {
+      background: #fff;
+    }
+    tr:hover {
+      background: #d6f5e7;
+    }
+    td {
+      color: var(--fg);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1.2em;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 24px rgba(32,181,129,0.13);
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 10px 32px rgba(32,181,129,0.18);
+      border-color: var(--accent);
+    }
+    .card a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+    .card-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      background: #eee;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+    }
+    .card-content {
+      padding: 1.2em;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.7em;
+    }
+    .card-text {
+      font-size: 1rem;
+      color: var(--fg);
+    }
+    @media (max-width: 720px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+      section {
+        padding: 1.2rem;
+      }
+      .profile {
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Eric Schellhase</h1>
+    <p>Willkommen auf meiner persönlichen Startseite. Hier findest du einen kurzen Überblick über meinen Werdegang und aktuelle Projekte.</p>
+    <p>Ich interessiere mich für Geoinformatik, digitale Karten und die Schnittstelle zwischen Technik und Gesellschaft.</p>
+  </header>
+  <main>
+    <section class="profile">
+      <figure>
+        <img src="assets/me.jpg" alt="Eric Schellhase" />
+        <figcaption>Eric Schellhase</figcaption>
+      </figure>
+      <div class="profile-details">
+        <h2>Stationen</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Jahr</th>
+              <th>Station</th>
+              <th>Ort</th>
+              <th>Stichwort</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2017</td><td>Abitur</td><td>Berlin</td><td>Start</td></tr>
+            <tr><td>2018</td><td>FSJ</td><td>Leipzig</td><td>Engagement</td></tr>
+            <tr><td>2019</td><td>Studium</td><td>Dresden</td><td>Geoinformatik</td></tr>
+            <tr><td>2022</td><td>Praktikum</td><td>Hamburg</td><td>GIS</td></tr>
+            <tr><td>2023</td><td>Werkstudent</td><td>Berlin</td><td>Datenanalyse</td></tr>
+            <tr><td>2025</td><td>Abschluss</td><td>Dresden</td><td>B.Sc.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section>
+      <h2>Galerie</h2>
+      <div class="gallery">
+        <div class="card">
+          <a href="https://github.com/EricSchellhase" target="_blank" rel="noopener" aria-label="GitHub Profil öffnen">
+            <img class="card-img" src="https://picsum.photos/600/400?random=1" alt="GitHub Platzhalterbild" />
+            <div class="card-content">
+              <div class="card-title">GitHub</div>
+              <div class="card-text">Meine Projekte, Code und Beiträge auf GitHub.</div>
+            </div>
+          </a>
+        </div>
+        <div class="card">
+          <a href="https://portfolio.example.com" target="_blank" rel="noopener" aria-label="Portfolio öffnen">
+            <img class="card-img" src="https://picsum.photos/600/400?random=2" alt="Portfolio Platzhalterbild" />
+            <div class="card-content">
+              <div class="card-title">Portfolio</div>
+              <div class="card-text">Ausgewählte Arbeiten und Projekte im Überblick.</div>
+            </div>
+          </a>
+        </div>
+        <div class="card">
+          <a href="https://fotoblog.example.com" target="_blank" rel="noopener" aria-label="Fotoblog öffnen">
+            <img class="card-img" src="https://picsum.photos/600/400?random=3" alt="Fotoblog Platzhalterbild" />
+            <div class="card-content">
+              <div class="card-title">Fotoblog</div>
+              <div class="card-text">Bilder und Eindrücke aus Alltag und Reisen.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
