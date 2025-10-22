@@ -18,6 +18,19 @@
       --maxw: 900px;
       --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
+
+    /* Night mode overrides */
+    body.night {
+      --bg: #0b1220;
+      --fg: #e6eef6;
+      --accent: #58d49b;
+      --card-bg: #0f1926;
+      --card-border: #1f2933;
+      --table-header: #071126;
+      --table-row: #091423;
+      --shadow: 0 6px 24px rgba(0,0,0,0.6);
+    }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -37,6 +50,7 @@
       max-width: var(--maxw);
       padding: 2.5rem 1rem 1.5rem 1rem;
       text-align: center;
+      position: relative; /* für den Toggle-Button */
     }
     header h1 {
       margin: 0 0 0.7em 0;
@@ -197,6 +211,9 @@
 </head>
 <body>
   <header>
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Wechsel zwischen Hell- und Nachtmodus">🌙</button>
+
     <h1>Eric Schellhase</h1>
     <p>Willkommen auf meiner persönlichen Startseite. Hier findest du einen kurzen Überblick über meinen Werdegang und aktuelle Projekte.</p>
     <p>Ich interessiere mich für Geoinformatik, digitale Karten und die Schnittstelle zwischen Technik und Gesellschaft.</p>
@@ -262,5 +279,37 @@
       </div>
     </section>
   </main>
+
+  <script>
+    // Theme toggle logic: speichert Auswahl in localStorage, nutzt System-Default falls nicht gesetzt
+    (function () {
+      const btn = document.getElementById('theme-toggle');
+      const body = document.body;
+
+      function applyTheme(theme) {
+        if (theme === 'night') {
+          body.classList.add('night');
+          btn.textContent = '☀️';
+          btn.setAttribute('aria-label', 'Wechsel zu Hellmodus');
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          body.classList.remove('night');
+          btn.textContent = '🌙';
+          btn.setAttribute('aria-label', 'Wechsel zu Nachtmodus');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+        localStorage.setItem('theme', theme);
+      }
+
+      // Initial: gespeicherte Einstellung oder System-Preference
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(saved || (prefersDark ? 'night' : 'light'));
+
+      btn.addEventListener('click', () => {
+        applyTheme(body.classList.contains('night') ? 'light' : 'night');
+      });
+    })();
+  </script>
 </body>
 </html>
