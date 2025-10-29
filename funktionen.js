@@ -84,69 +84,85 @@
 })();
 
 // News functionality
-(function() {
-    const newsContainer = document.getElementById('news-container');
-    const newsForm = document.getElementById('news-form');
+const newsHandler = {
+    init() {
+        this.newsContainer = document.getElementById('news-container');
+        this.newsForm = document.getElementById('news-form');
+        this.bindEvents();
+        this.loadNews(); // Initial load
+    },
 
-    async function loadNews() {
+    bindEvents() {
+        // Form submission
+        this.newsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await this.saveNews();
+        });
+
+        // Tab switch handlers
+        document.getElementById('news-btn').addEventListener('click', () => this.loadNews());
+        document.getElementById('view-news-btn').addEventListener('click', () => this.loadNews());
+    },
+
+    async loadNews() {
         try {
-            const response = await fetch('news.json');
+            const response = await fetch('news.json?t=' + new Date().getTime()); // Prevent caching
             const data = await response.json();
             
-            newsContainer.innerHTML = data.news.map(item => `
+            this.newsContainer.innerHTML = data.news.map(item => `
                 <article class="news-card">
-                    <time>${formatDate(item.date)}</time>
+                    <time>${this.formatDate(item.date)}</time>
                     <h3>${item.title}</h3>
                     <p>${item.content}</p>
                 </article>
             `).join('');
         } catch (error) {
             console.error('Error loading news:', error);
+            this.newsContainer.innerHTML = '<p>Fehler beim Laden der News.</p>';
         }
-    }
+    },
 
-    function formatDate(dateString) {
-        return new Date(dateString).toLocaleDateString('de-DE', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    }
-
-    newsForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    async saveNews() {
+        const titleInput = document.getElementById('news-title');
+        const contentInput = document.getElementById('news-content');
         
-        const title = document.getElementById('news-title').value;
-        const content = document.getElementById('news-content').value;
-
         try {
             const response = await fetch('save_news.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ title, content })
+                body: JSON.stringify({
+                    title: titleInput.value,
+                    content: contentInput.value
+                })
             });
 
             const result = await response.json();
             
             if (result.success) {
-                newsForm.reset();
-                loadNews();
+                titleInput.value = '';
+                contentInput.value = '';
+                
+                // Switch to view tab and reload news
+                document.getElementById('view-news-btn').click();
+                await this.loadNews();
+            } else {
+                alert('Fehler beim Speichern: ' + (result.error || 'Unbekannter Fehler'));
             }
         } catch (error) {
             console.error('Error saving news:', error);
+            alert('Fehler beim Speichern der News');
         }
-    });
+    },
 
-    // Load news when the tab is shown
-    document.getElementById('news-btn').addEventListener('click', loadNews);
-    
-    // Initial load if news tab is active
-    if (document.getElementById('news-tab').classList.contains('active')) {
-        loadNews();
+    formatDate(dateString) {
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('de-DE', options);
     }
+};
 
-    // Update news loading to only happen when view-news tab is activated
-    document.getElementById('view-news-btn').addEventListener('click', loadNews);
-})();
+// Initialize news functionality after DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    newsHandler.init();
+});

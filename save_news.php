@@ -5,19 +5,31 @@ $newsFile = 'news.json';
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (isset($input['title']) && isset($input['content'])) {
-    $currentNews = json_decode(file_get_contents($newsFile), true);
+    // Ensure file exists and is readable
+    if (!file_exists($newsFile)) {
+        $currentNews = ['news' => []];
+    } else {
+        $jsonContent = file_get_contents($newsFile);
+        $currentNews = json_decode($jsonContent, true);
+        if (!$currentNews) {
+            $currentNews = ['news' => []];
+        }
+    }
     
     $newItem = [
         'date' => date('Y-m-d'),
-        'title' => $input['title'],
-        'content' => $input['content']
+        'title' => htmlspecialchars($input['title']),
+        'content' => htmlspecialchars($input['content'])
     ];
     
     array_unshift($currentNews['news'], $newItem);
     
-    file_put_contents($newsFile, json_encode($currentNews, JSON_PRETTY_PRINT));
-    
-    echo json_encode(['success' => true]);
+    // Save with proper formatting and error handling
+    if (file_put_contents($newsFile, json_encode($currentNews, JSON_PRETTY_PRINT))) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Could not write to file']);
+    }
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid input']);
 }
