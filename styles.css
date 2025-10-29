@@ -216,6 +216,46 @@ td {
   display: block;
 }
 
+.subtabs-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--card-border);
+  padding-bottom: 0.5rem;
+}
+
+.subtabs-nav button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  position: relative;
+}
+
+.subtabs-nav button[aria-selected="true"] {
+  color: var(--accent);
+}
+
+.subtabs-nav button[aria-selected="true"]::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+.subtab-panel {
+  display: none;
+}
+
+.subtab-panel.active {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

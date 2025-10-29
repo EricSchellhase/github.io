@@ -58,6 +58,31 @@
   });
 })();
 
+// Subtabs functionality
+(function() {
+    const subtabs = document.querySelectorAll('.subtabs-nav button');
+    
+    function switchSubTab(oldTab, newTab) {
+        newTab.setAttribute('aria-selected', 'true');
+        oldTab.setAttribute('aria-selected', 'false');
+        
+        const newPanelId = newTab.getAttribute('aria-controls');
+        const oldPanelId = oldTab.getAttribute('aria-controls');
+        
+        document.getElementById(oldPanelId).classList.remove('active');
+        document.getElementById(newPanelId).classList.add('active');
+    }
+    
+    subtabs.forEach(tab => {
+        tab.addEventListener('click', e => {
+            const currentTab = document.querySelector('.subtabs-nav button[aria-selected="true"]');
+            if (e.currentTarget !== currentTab) {
+                switchSubTab(currentTab, e.currentTarget);
+            }
+        });
+    });
+})();
+
 // News functionality
 (function() {
     const newsContainer = document.getElementById('news-container');
@@ -121,4 +146,7 @@
     if (document.getElementById('news-tab').classList.contains('active')) {
         loadNews();
     }
+
+    // Update news loading to only happen when view-news tab is activated
+    document.getElementById('view-news-btn').addEventListener('click', loadNews);
 })();
