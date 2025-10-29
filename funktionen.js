@@ -98,10 +98,6 @@ const newsHandler = {
             e.preventDefault();
             await this.saveNews();
         });
-
-        // Tab switch handlers
-        document.getElementById('news-btn').addEventListener('click', () => this.loadNews());
-        document.getElementById('view-news-btn').addEventListener('click', () => this.loadNews());
     },
 
     async loadNews() {
