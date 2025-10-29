@@ -39,22 +39,20 @@
 
       <section id="news-tab" role="tabpanel" aria-labelledby="news-btn" class="tab-panel">
         <h2>Aktuelle Updates</h2>
-        <div class="news-grid">
-          <article class="news-card">
-            <time>15. Januar 2024</time>
-            <h3>Neues Projekt gestartet</h3>
-            <p>Entwicklung einer interaktiven Webkarte zur Visualisierung von Umweltdaten in Dresden.</p>
-          </article>
-          <article class="news-card">
-            <time>5. Januar 2024</time>
-            <h3>Workshop Teilnahme</h3>
-            <p>Besuch des FOSSGIS Workshops zu neuesten Entwicklungen im Bereich WebGIS.</p>
-          </article>
-          <article class="news-card">
-            <time>20. Dezember 2023</time>
-            <h3>Abschluss Semester</h3>
-            <p>Erfolgreich das 5. Semester mit Fokus auf Webkartographie abgeschlossen.</p>
-          </article>
+        <form id="news-form" class="news-form">
+          <h3>Neue Nachricht hinzufügen</h3>
+          <div class="form-group">
+            <label for="news-title">Titel:</label>
+            <input type="text" id="news-title" required>
+          </div>
+          <div class="form-group">
+            <label for="news-content">Inhalt:</label>
+            <textarea id="news-content" required></textarea>
+          </div>
+          <button type="submit">Hinzufügen</button>
+        </form>
+        <div class="news-grid" id="news-container">
+          <!-- News items will be loaded dynamically -->
         </div>
       </section>
 

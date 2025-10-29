@@ -57,3 +57,68 @@
     });
   });
 })();
+
+// News functionality
+(function() {
+    const newsContainer = document.getElementById('news-container');
+    const newsForm = document.getElementById('news-form');
+
+    async function loadNews() {
+        try {
+            const response = await fetch('news.json');
+            const data = await response.json();
+            
+            newsContainer.innerHTML = data.news.map(item => `
+                <article class="news-card">
+                    <time>${formatDate(item.date)}</time>
+                    <h3>${item.title}</h3>
+                    <p>${item.content}</p>
+                </article>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading news:', error);
+        }
+    }
+
+    function formatDate(dateString) {
+        return new Date(dateString).toLocaleDateString('de-DE', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
+
+    newsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('news-title').value;
+        const content = document.getElementById('news-content').value;
+
+        try {
+            const response = await fetch('save_news.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title, content })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                newsForm.reset();
+                loadNews();
+            }
+        } catch (error) {
+            console.error('Error saving news:', error);
+        }
+    });
+
+    // Load news when the tab is shown
+    document.getElementById('news-btn').addEventListener('click', loadNews);
+    
+    // Initial load if news tab is active
+    if (document.getElementById('news-tab').classList.contains('active')) {
+        loadNews();
+    }
+})();
