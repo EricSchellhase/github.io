@@ -1,0 +1,24 @@
+{
+  "news": [
+    {
+      "date": "2024-01-15",
+      "title": "Neues Projekt gestartet",
+      "content": "Entwicklung einer interaktiven Webkarte zur Visualisierung von Umweltdaten in Dresden."
+    },
+    {
+      "date": "2024-01-05",
+      "title": "Workshop Teilnahme",
+      "content": "Besuch des FOSSGIS Workshops zu neuesten Entwicklungen im Bereich WebGIS."
+    },
+    {
+      "date": "2023-12-20",
+      "title": "Abschluss Semester",
+      "content": "Erfolgreich das 5. Semester mit Fokus auf Webkartographie abgeschlossen."
+    },
+    {
+      "date": "2025-12-02",
+      "title": "Geburtstag",
+      "content": "Bald bin ich 23."
+    }
+  ]
+}
