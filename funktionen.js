@@ -27,3 +27,33 @@
     applyTheme(body.classList.contains('night') ? 'light' : 'night');
   });
 })();
+
+// Tab functionality
+(function() {
+  const tabs = document.querySelectorAll('[role="tab"]');
+  const panels = document.querySelectorAll('[role="tabpanel"]');
+
+  function switchTab(oldTab, newTab) {
+    newTab.focus();
+    newTab.setAttribute('aria-selected', 'true');
+    oldTab.setAttribute('aria-selected', 'false');
+    oldTab.focus();
+    
+    const newPanelId = newTab.getAttribute('aria-controls');
+    const newPanel = document.getElementById(newPanelId);
+    const oldPanelId = oldTab.getAttribute('aria-controls');
+    const oldPanel = document.getElementById(oldPanelId);
+
+    oldPanel.classList.remove('active');
+    newPanel.classList.add('active');
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', e => {
+      const currentTab = document.querySelector('[aria-selected="true"]');
+      if (e.currentTarget !== currentTab) {
+        switchTab(currentTab, e.currentTarget);
+      }
+    });
+  });
+})();

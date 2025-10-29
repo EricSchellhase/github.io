@@ -185,6 +185,48 @@ td {
   font-size: 1rem;
   color: var(--fg);
 }
+.tabs-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tabs-nav button {
+  padding: 0.8rem 2rem;
+  border: none;
+  background: var(--card-bg);
+  color: var(--fg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tabs-nav button[aria-selected="true"] {
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 720px) {
   .gallery {
     grid-template-columns: 1fr;

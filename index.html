@@ -16,65 +16,75 @@
     <p>Ich interessiere mich für Geoinformatik, digitale Karten und die Schnittstelle zwischen Technik und Gesellschaft.</p>
   </header>
   <main>
-    <section class="profile">
-      <figure>
-        <img src="assets/me.jpg" alt="Eric Schellhase" />
-        <figcaption>Eric Schellhase</figcaption>
-      </figure>
-      <div class="profile-details">
-        <h2>Stationen</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Jahr</th>
-              <th>Station</th>
-              <th>Ort</th>
-              <th>Stichwort</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>2017</td><td>Abitur</td><td>Berlin</td><td>Start</td></tr>
-            <tr><td>2018</td><td>FSJ</td><td>Leipzig</td><td>Engagement</td></tr>
-            <tr><td>2019</td><td>Studium</td><td>Dresden</td><td>Geoinformatik</td></tr>
-            <tr><td>2022</td><td>Praktikum</td><td>Hamburg</td><td>GIS</td></tr>
-            <tr><td>2023</td><td>Werkstudent</td><td>Berlin</td><td>Datenanalyse</td></tr>
-            <tr><td>2025</td><td>Abschluss</td><td>Dresden</td><td>B.Sc.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section>
-      <h2>Galerie</h2>
-      <div class="gallery">
-        <div class="card">
-          <a href="https://github.com/EricSchellhase" target="_blank" rel="noopener" aria-label="GitHub Profil öffnen">
-            <img class="card-img" src="https://picsum.photos/600/400?random=1" alt="GitHub Platzhalterbild" />
-            <div class="card-content">
-              <div class="card-title">GitHub</div>
-              <div class="card-text">Meine Projekte, Code und Beiträge auf GitHub.</div>
-            </div>
-          </a>
+    <nav class="tabs-nav" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="profile-tab" id="profile-btn">Profil</button>
+      <button role="tab" aria-selected="false" aria-controls="gallery-tab" id="gallery-btn">Galerie</button>
+    </nav>
+    
+    <div class="tab-content">
+      <section id="profile-tab" role="tabpanel" aria-labelledby="profile-btn" class="tab-panel active">
+        <div class="profile">
+          <figure>
+            <img src="assets/me.jpg" alt="Eric Schellhase" />
+            <figcaption>Eric Schellhase</figcaption>
+          </figure>
+          <div class="profile-details">
+            <h2>Stationen</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Jahr</th>
+                  <th>Station</th>
+                  <th>Ort</th>
+                  <th>Stichwort</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>2017</td><td>Abitur</td><td>Berlin</td><td>Start</td></tr>
+                <tr><td>2018</td><td>FSJ</td><td>Leipzig</td><td>Engagement</td></tr>
+                <tr><td>2019</td><td>Studium</td><td>Dresden</td><td>Geoinformatik</td></tr>
+                <tr><td>2022</td><td>Praktikum</td><td>Hamburg</td><td>GIS</td></tr>
+                <tr><td>2023</td><td>Werkstudent</td><td>Berlin</td><td>Datenanalyse</td></tr>
+                <tr><td>2025</td><td>Abschluss</td><td>Dresden</td><td>B.Sc.</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="card">
-          <a href="https://portfolio.example.com" target="_blank" rel="noopener" aria-label="Portfolio öffnen">
-            <img class="card-img" src="https://picsum.photos/600/400?random=2" alt="Portfolio Platzhalterbild" />
-            <div class="card-content">
-              <div class="card-title">Portfolio</div>
-              <div class="card-text">Ausgewählte Arbeiten und Projekte im Überblick.</div>
-            </div>
-          </a>
+      </section>
+
+      <section id="gallery-tab" role="tabpanel" aria-labelledby="gallery-btn" class="tab-panel">
+        <h2>Galerie</h2>
+        <div class="gallery">
+          <div class="card">
+            <a href="https://github.com/EricSchellhase" target="_blank" rel="noopener" aria-label="GitHub Profil öffnen">
+              <img class="card-img" src="https://picsum.photos/600/400?random=1" alt="GitHub Platzhalterbild" />
+              <div class="card-content">
+                <div class="card-title">GitHub</div>
+                <div class="card-text">Meine Projekte, Code und Beiträge auf GitHub.</div>
+              </div>
+            </a>
+          </div>
+          <div class="card">
+            <a href="https://portfolio.example.com" target="_blank" rel="noopener" aria-label="Portfolio öffnen">
+              <img class="card-img" src="https://picsum.photos/600/400?random=2" alt="Portfolio Platzhalterbild" />
+              <div class="card-content">
+                <div class="card-title">Portfolio</div>
+                <div class="card-text">Ausgewählte Arbeiten und Projekte im Überblick.</div>
+              </div>
+            </a>
+          </div>
+          <div class="card">
+            <a href="https://fotoblog.example.com" target="_blank" rel="noopener" aria-label="Fotoblog öffnen">
+              <img class="card-img" src="https://picsum.photos/600/400?random=3" alt="Fotoblog Platzhalterbild" />
+              <div class="card-content">
+                <div class="card-title">Fotoblog</div>
+                <div class="card-text">Bilder und Eindrücke aus Alltag und Reisen.</div>
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="card">
-          <a href="https://fotoblog.example.com" target="_blank" rel="noopener" aria-label="Fotoblog öffnen">
-            <img class="card-img" src="https://picsum.photos/600/400?random=3" alt="Fotoblog Platzhalterbild" />
-            <div class="card-content">
-              <div class="card-title">Fotoblog</div>
-              <div class="card-text">Bilder und Eindrücke aus Alltag und Reisen.</div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
   <script src="funktionen.js"></script>
 </body>
