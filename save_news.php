@@ -21,3 +21,4 @@ if (isset($input['title']) && isset($input['content'])) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid input']);
 }
+?>
