@@ -242,3 +242,76 @@ td {
     font-size: 1.5rem;
   }
 }
+
+.news-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.news-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+}
+
+.news-card time {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.project-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tags span {
+  background: var(--table-header);
+  color: var(--accent);
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+}
+
+.about-content {
+  max-width: 600px;
+}
+
+@media (max-width: 720px) {
+  .news-grid, .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

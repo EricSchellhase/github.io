@@ -17,71 +17,74 @@
   </header>
   <main>
     <nav class="tabs-nav" role="tablist">
-      <button role="tab" aria-selected="true" aria-controls="profile-tab" id="profile-btn">Profil</button>
-      <button role="tab" aria-selected="false" aria-controls="gallery-tab" id="gallery-btn">Galerie</button>
+      <button role="tab" aria-selected="true" aria-controls="about-tab" id="about-btn">About</button>
+      <button role="tab" aria-selected="false" aria-controls="news-tab" id="news-btn">News</button>
+      <button role="tab" aria-selected="false" aria-controls="projects-tab" id="projects-btn">Projects</button>
     </nav>
     
     <div class="tab-content">
-      <section id="profile-tab" role="tabpanel" aria-labelledby="profile-btn" class="tab-panel active">
+      <section id="about-tab" role="tabpanel" aria-labelledby="about-btn" class="tab-panel active">
         <div class="profile">
           <figure>
             <img src="assets/me.jpg" alt="Eric Schellhase" />
             <figcaption>Eric Schellhase</figcaption>
           </figure>
-          <div class="profile-details">
-            <h2>Stationen</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Jahr</th>
-                  <th>Station</th>
-                  <th>Ort</th>
-                  <th>Stichwort</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>2017</td><td>Abitur</td><td>Berlin</td><td>Start</td></tr>
-                <tr><td>2018</td><td>FSJ</td><td>Leipzig</td><td>Engagement</td></tr>
-                <tr><td>2019</td><td>Studium</td><td>Dresden</td><td>Geoinformatik</td></tr>
-                <tr><td>2022</td><td>Praktikum</td><td>Hamburg</td><td>GIS</td></tr>
-                <tr><td>2023</td><td>Werkstudent</td><td>Berlin</td><td>Datenanalyse</td></tr>
-                <tr><td>2025</td><td>Abschluss</td><td>Dresden</td><td>B.Sc.</td></tr>
-              </tbody>
-            </table>
+          <div class="about-content">
+            <h2>Über mich</h2>
+            <p>Als angehender Geoinformatiker interessiere ich mich für die Schnittstelle zwischen räumlichen Daten und modernen Webtechnologien. Mein Fokus liegt auf der Entwicklung interaktiver Kartenlösungen und der Analyse von Geodaten.</p>
+            <p>In meiner Freizeit beschäftige ich mich mit Open Source GIS und trage zu verschiedenen Mapping-Projekten bei.</p>
           </div>
         </div>
       </section>
 
-      <section id="gallery-tab" role="tabpanel" aria-labelledby="gallery-btn" class="tab-panel">
-        <h2>Galerie</h2>
-        <div class="gallery">
-          <div class="card">
-            <a href="https://github.com/EricSchellhase" target="_blank" rel="noopener" aria-label="GitHub Profil öffnen">
-              <img class="card-img" src="https://picsum.photos/600/400?random=1" alt="GitHub Platzhalterbild" />
-              <div class="card-content">
-                <div class="card-title">GitHub</div>
-                <div class="card-text">Meine Projekte, Code und Beiträge auf GitHub.</div>
+      <section id="news-tab" role="tabpanel" aria-labelledby="news-btn" class="tab-panel">
+        <h2>Aktuelle Updates</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <time>15. Januar 2024</time>
+            <h3>Neues Projekt gestartet</h3>
+            <p>Entwicklung einer interaktiven Webkarte zur Visualisierung von Umweltdaten in Dresden.</p>
+          </article>
+          <article class="news-card">
+            <time>5. Januar 2024</time>
+            <h3>Workshop Teilnahme</h3>
+            <p>Besuch des FOSSGIS Workshops zu neuesten Entwicklungen im Bereich WebGIS.</p>
+          </article>
+          <article class="news-card">
+            <time>20. Dezember 2023</time>
+            <h3>Abschluss Semester</h3>
+            <p>Erfolgreich das 5. Semester mit Fokus auf Webkartographie abgeschlossen.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects-tab" role="tabpanel" aria-labelledby="projects-btn" class="tab-panel">
+        <h2>Meine Projekte</h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <img src="https://picsum.photos/600/400?random=1" alt="Dresden Umweltatlas" />
+            <div class="project-content">
+              <h3>Dresden Umweltatlas</h3>
+              <p>Interaktive Webkarte zur Visualisierung von Umweltdaten in Dresden.</p>
+              <div class="tags">
+                <span>Leaflet</span>
+                <span>GeoJSON</span>
+                <span>JavaScript</span>
               </div>
-            </a>
-          </div>
-          <div class="card">
-            <a href="https://portfolio.example.com" target="_blank" rel="noopener" aria-label="Portfolio öffnen">
-              <img class="card-img" src="https://picsum.photos/600/400?random=2" alt="Portfolio Platzhalterbild" />
-              <div class="card-content">
-                <div class="card-title">Portfolio</div>
-                <div class="card-text">Ausgewählte Arbeiten und Projekte im Überblick.</div>
+            </div>
+          </article>
+          <article class="project-card">
+            <img src="https://picsum.photos/600/400?random=2" alt="Geo-Dashboard" />
+            <div class="project-content">
+              <h3>Geo-Dashboard</h3>
+              <p>Dashboard zur Analyse von räumlichen Trends in Sachsen.</p>
+              <div class="tags">
+                <span>React</span>
+                <span>MapboxGL</span>
+                <span>D3.js</span>
               </div>
-            </a>
-          </div>
-          <div class="card">
-            <a href="https://fotoblog.example.com" target="_blank" rel="noopener" aria-label="Fotoblog öffnen">
-              <img class="card-img" src="https://picsum.photos/600/400?random=3" alt="Fotoblog Platzhalterbild" />
-              <div class="card-content">
-                <div class="card-title">Fotoblog</div>
-                <div class="card-text">Bilder und Eindrücke aus Alltag und Reisen.</div>
-              </div>
-            </a>
-          </div>
+            </div>
+          </article>
         </div>
       </section>
     </div>
