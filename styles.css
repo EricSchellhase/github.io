@@ -319,6 +319,63 @@ td {
   display: none;
 }
 
+.contact-section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+.contact-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--fg);
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 32px rgba(32,181,129,0.2);
+}
+
+.contact-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--accent);
+  font-size: 1.3rem;
+}
+
+.contact-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--fg);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -360,5 +417,19 @@ td {
   
   .news-content {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
+  }
+  
+  .contact-icon {
+    font-size: 2.5rem;
   }
 }
