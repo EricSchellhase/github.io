@@ -88,6 +88,13 @@ const newsHandler = {
     init() {
         this.newsContainer = document.getElementById('news-container');
         this.newsForm = document.getElementById('news-form');
+        
+        // Überprüfe ob Elemente existieren
+        if (!this.newsContainer || !this.newsForm) {
+            console.error('News container oder form nicht gefunden');
+            return;
+        }
+        
         this.bindEvents();
         this.loadNews(); // Initial load
     },
@@ -102,7 +109,9 @@ const newsHandler = {
 
     async loadNews() {
         try {
-            const response = await fetch('assets/news.json?t=' + new Date().getTime()); // Pfad angepasst, Cache-Busting
+            const response = await fetch('assets/news.json?t=' + new Date().getTime());
+            if (!response.ok) throw new Error('HTTP error ' + response.status);
+            
             const data = await response.json();
             
             this.newsContainer.innerHTML = data.news.map(item => `
@@ -129,8 +138,14 @@ const newsHandler = {
         const excerptInput = document.getElementById('news-excerpt');
         const contentInput = document.getElementById('news-content');
         
+        // Validierung
+        if (!titleInput.value || !dateInput.value || !imageInput.value || !excerptInput.value || !contentInput.value) {
+            alert('Bitte alle Felder ausfüllen');
+            return;
+        }
+        
         try {
-            const response = await fetch('save_news.php', { // PHP bleibt am selben Ort
+            const response = await fetch('save_news.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -144,18 +159,22 @@ const newsHandler = {
                 })
             });
 
+            if (!response.ok) throw new Error('HTTP error ' + response.status);
+            
             const result = await response.json();
             
             if (result.success) {
                 // Reset form
                 [titleInput, dateInput, imageInput, excerptInput, contentInput].forEach(input => input.value = '');
+                alert('News erfolgreich hinzugefügt!');
                 await this.loadNews();
             } else {
                 alert('Fehler beim Speichern: ' + (result.error || 'Unbekannter Fehler'));
+                console.error('Save error:', result);
             }
         } catch (error) {
             console.error('Error saving news:', error);
-            alert('Fehler beim Speichern der News');
+            alert('Fehler beim Speichern der News: ' + error.message);
         }
     },
 
