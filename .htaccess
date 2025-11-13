@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Erlaube direkte Zugriffe auf Dateien und Verzeichnisse
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+</IfModule>
+
+# Erlaube alle HTTP-Methoden
+<IfModule mod_allowmethods.c>
+    <FilesMatch "\.php$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
