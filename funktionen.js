@@ -89,18 +89,16 @@ const newsHandler = {
         this.newsContainer = document.getElementById('news-container');
         this.newsForm = document.getElementById('news-form');
         
-        // Überprüfe ob Elemente existieren
         if (!this.newsContainer || !this.newsForm) {
             console.error('News container oder form nicht gefunden');
             return;
         }
         
         this.bindEvents();
-        this.loadNews(); // Initial load
+        this.loadNews();
     },
 
     bindEvents() {
-        // Form submission
         this.newsForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             await this.saveNews();
@@ -109,26 +107,39 @@ const newsHandler = {
 
     async loadNews() {
         try {
+            // Versuche zuerst JSON zu laden
             const response = await fetch('assets/news.json?t=' + new Date().getTime());
-            if (!response.ok) throw new Error('HTTP error ' + response.status);
-            
-            const data = await response.json();
-            
-            this.newsContainer.innerHTML = data.news.map(item => `
-                <article class="news-card">
-                    <img src="${item.image}" alt="" class="news-image">
-                    <div class="news-content">
-                        <time>${this.formatDate(item.date)}</time>
-                        <h3>${item.title}</h3>
-                        <p class="news-excerpt">${item.excerpt}</p>
-                        <p class="news-full">${item.content}</p>
-                    </div>
-                </article>
-            `).join('');
+            if (response.ok) {
+                const data = await response.json();
+                this.renderNews(data.news);
+            } else {
+                // Fallback: Lade aus localStorage
+                this.loadFromLocalStorage();
+            }
         } catch (error) {
-            console.error('Error loading news:', error);
-            this.newsContainer.innerHTML = '<p>Fehler beim Laden der News.</p>';
+            console.log('JSON nicht verfügbar, lade aus localStorage');
+            this.loadFromLocalStorage();
         }
+    },
+
+    loadFromLocalStorage() {
+        const stored = localStorage.getItem('news');
+        const news = stored ? JSON.parse(stored) : [];
+        this.renderNews(news);
+    },
+
+    renderNews(news) {
+        this.newsContainer.innerHTML = news.map(item => `
+            <article class="news-card">
+                <img src="${item.image}" alt="" class="news-image">
+                <div class="news-content">
+                    <time>${this.formatDate(item.date)}</time>
+                    <h3>${item.title}</h3>
+                    <p class="news-excerpt">${item.excerpt}</p>
+                    <p class="news-full">${item.content}</p>
+                </div>
+            </article>
+        `).join('');
     },
 
     async saveNews() {
@@ -138,40 +149,39 @@ const newsHandler = {
         const excerptInput = document.getElementById('news-excerpt');
         const contentInput = document.getElementById('news-content');
         
-        // Validierung
         if (!titleInput.value || !dateInput.value || !imageInput.value || !excerptInput.value || !contentInput.value) {
             alert('Bitte alle Felder ausfüllen');
             return;
         }
         
         try {
-            const response = await fetch('save_news.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: titleInput.value,
-                    date: dateInput.value,
-                    image: imageInput.value,
-                    excerpt: excerptInput.value,
-                    content: contentInput.value
-                })
-            });
-
-            if (!response.ok) throw new Error('HTTP error ' + response.status);
+            // Lade existierende News aus localStorage
+            const stored = localStorage.getItem('news');
+            const news = stored ? JSON.parse(stored) : [];
             
-            const result = await response.json();
+            // Generiere neue ID
+            const maxId = news.length > 0 ? Math.max(...news.map(n => n.id || 0)) : 0;
             
-            if (result.success) {
-                // Reset form
-                [titleInput, dateInput, imageInput, excerptInput, contentInput].forEach(input => input.value = '');
-                alert('News erfolgreich hinzugefügt!');
-                await this.loadNews();
-            } else {
-                alert('Fehler beim Speichern: ' + (result.error || 'Unbekannter Fehler'));
-                console.error('Save error:', result);
-            }
+            const newItem = {
+                id: maxId + 1,
+                title: titleInput.value,
+                date: dateInput.value,
+                image: imageInput.value,
+                excerpt: excerptInput.value,
+                content: contentInput.value
+            };
+            
+            // Füge am Anfang hinzu
+            news.unshift(newItem);
+            
+            // Speichere in localStorage (max 10 News)
+            localStorage.setItem('news', JSON.stringify(news.slice(0, 10)));
+            
+            // Reset form
+            [titleInput, dateInput, imageInput, excerptInput, contentInput].forEach(input => input.value = '');
+            alert('News erfolgreich hinzugefügt!');
+            await this.loadNews();
+            
         } catch (error) {
             console.error('Error saving news:', error);
             alert('Fehler beim Speichern der News: ' + error.message);
