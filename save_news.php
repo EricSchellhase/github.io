@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$newsFile = 'news.json';
+$newsFile = 'assets/news.json'; // Pfad angepasst
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (isset($input['title']) && isset($input['content']) && isset($input['date']) && isset($input['image']) && isset($input['excerpt'])) {
@@ -18,7 +18,7 @@ if (isset($input['title']) && isset($input['content']) && isset($input['date']) 
     // Get the highest existing ID and increment by 1
     $maxId = 0;
     foreach ($currentNews['news'] as $item) {
-        $maxId = max($maxId, $item['id']);
+        $maxId = max($maxId, isset($item['id']) ? $item['id'] : 0);
     }
     
     $newItem = [
@@ -32,7 +32,7 @@ if (isset($input['title']) && isset($input['content']) && isset($input['date']) 
     
     array_unshift($currentNews['news'], $newItem);
     
-    if (file_put_contents($newsFile, json_encode($currentNews, JSON_PRETTY_PRINT))) {
+    if (file_put_contents($newsFile, json_encode($currentNews, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))) {
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Could not write to file']);

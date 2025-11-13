@@ -100,6 +100,28 @@ const newsHandler = {
         });
     },
 
+    async loadNews() {
+        try {
+            const response = await fetch('assets/news.json?t=' + new Date().getTime()); // Pfad angepasst, Cache-Busting
+            const data = await response.json();
+            
+            this.newsContainer.innerHTML = data.news.map(item => `
+                <article class="news-card">
+                    <img src="${item.image}" alt="" class="news-image">
+                    <div class="news-content">
+                        <time>${this.formatDate(item.date)}</time>
+                        <h3>${item.title}</h3>
+                        <p class="news-excerpt">${item.excerpt}</p>
+                        <p class="news-full">${item.content}</p>
+                    </div>
+                </article>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading news:', error);
+            this.newsContainer.innerHTML = '<p>Fehler beim Laden der News.</p>';
+        }
+    },
+
     async saveNews() {
         const titleInput = document.getElementById('news-title');
         const dateInput = document.getElementById('news-date');
@@ -108,7 +130,7 @@ const newsHandler = {
         const contentInput = document.getElementById('news-content');
         
         try {
-            const response = await fetch('save_news.php', {
+            const response = await fetch('save_news.php', { // PHP bleibt am selben Ort
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,28 +156,6 @@ const newsHandler = {
         } catch (error) {
             console.error('Error saving news:', error);
             alert('Fehler beim Speichern der News');
-        }
-    },
-
-    async loadNews() {
-        try {
-            const response = await fetch('news.json?t=' + new Date().getTime());
-            const data = await response.json();
-            
-            this.newsContainer.innerHTML = data.news.map(item => `
-                <article class="news-card">
-                    <img src="${item.image}" alt="" class="news-image">
-                    <div class="news-content">
-                        <time>${this.formatDate(item.date)}</time>
-                        <h3>${item.title}</h3>
-                        <p class="news-excerpt">${item.excerpt}</p>
-                        <p class="news-full">${item.content}</p>
-                    </div>
-                </article>
-            `).join('');
-        } catch (error) {
-            console.error('Error loading news:', error);
-            this.newsContainer.innerHTML = '<p>Fehler beim Laden der News.</p>';
         }
     },
 
